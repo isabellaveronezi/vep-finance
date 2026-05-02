@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: white; padding: 20px; }
+  .grid { display: flex; flex-direction: column; gap: 12px; max-width: 360px; }
+  label { font-size: 12px; font-weight: 500; color: #374151; display: block; margin-bottom: 5px; }
+  input, select {
+    width: 100%; height: 36px; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 0 12px; font-family: 'Inter', sans-serif; font-size: 13px;
+    color: #171717; background: white; outline: none;
+  }
+  input:focus, select:focus { border-color: #a1a1aa; box-shadow: 0 0 0 3px rgba(0,0,0,0.06); }
+  input::placeholder { color: #a1a1aa; }
+  .input-group { position: relative; }
+  .input-group .prefix {
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    font-size: 12px; color: #888; pointer-events: none;
+  }
+  .input-group input { padding-left: 32px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .error-input { border-color: #ef4444; }
+  .error-msg { font-size: 11px; color: #ef4444; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div>
+    <label>Descrição</label>
+    <input type="text" placeholder="Ex: Supermercado Extra" />
+  </div>
+  <div>
+    <label>Valor</label>
+    <div class="input-group">
+      <span class="prefix">R$</span>
+      <input type="text" placeholder="0,00" />
+    </div>
+  </div>
+  <div class="row2">
+    <div>
+      <label>Tipo</label>
+      <select>
+        <option>Despesa</option>
+        <option>Receita</option>
+      </select>
+    </div>
+    <div>
+      <label>Status</label>
+      <select>
+        <option>Pago</option>
+        <option>Pendente</option>
+        <option>Parcelado</option>
+      </select>
+    </div>
+  </div>
+  <div>
+    <label>Categoria</label>
+    <select>
+      <option>🛒 Alimentação</option>
+      <option>🏠 Moradia</option>
+      <option>🚗 Transporte</option>
+    </select>
+  </div>
+  <div>
+    <label>Data *</label>
+    <input type="text" value="20/04/2026" class="error-input" />
+    <div class="error-msg">Data é obrigatória</div>
+  </div>
+</div>
+</body>
+</html>

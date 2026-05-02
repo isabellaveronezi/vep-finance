@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f9fafb; padding: 20px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cc {
+    border-radius: 18px; padding: 18px; width: 240px;
+    color: white; display: flex; flex-direction: column; gap: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+  .cc-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .cc-type { font-size: 10px; opacity: 0.75; font-weight: 500; }
+  .cc-name { font-size: 16px; font-weight: 700; margin-top: 2px; }
+  .cc-icon { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+  .cc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cc-item .lbl { font-size: 10px; opacity: 0.7; }
+  .cc-item .val { font-family: 'Inter', monospace; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bar-track { height: 6px; border-radius: 9999px; background: rgba(255,255,255,0.3); }
+  .bar-fill { height: 100%; border-radius: 9999px; background: white; }
+  .cc-foot { display: flex; justify-content: space-between; font-size: 10px; opacity: 0.7; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; }
+  svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="cc" style="background:#3b82f6;">
+    <div class="cc-top">
+      <div><div class="cc-type">Cartão de crédito</div><div class="cc-name">Nubank</div></div>
+      <div class="cc-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span style="font-size:10px;opacity:0.75;">Visa</span>
+      </div>
+    </div>
+    <div class="cc-grid">
+      <div class="cc-item"><div class="lbl">Utilizado</div><div class="val">R$ 1.240,00</div></div>
+      <div class="cc-item"><div class="lbl">Disponível</div><div class="val">R$ 3.760,00</div></div>
+      <div class="cc-item"><div class="lbl">Limite total</div><div class="val">R$ 5.000,00</div></div>
+      <div class="cc-item"><div class="lbl">Próx. fatura</div><div class="val">R$ 980,00</div></div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;opacity:0.7;margin-bottom:4px;">
+        <span>Uso do limite</span><span>24%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:24%;"></div></div>
+    </div>
+    <div class="cc-foot"><span>Fecha dia 10</span><span>Vence dia 17</span></div>
+  </div>
+
+  <div class="cc" style="background:#8b5cf6;">
+    <div class="cc-top">
+      <div><div class="cc-type">Cartão de crédito</div><div class="cc-name">Inter</div></div>
+      <div class="cc-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        <span style="font-size:10px;opacity:0.75;">Mastercard</span>
+      </div>
+    </div>
+    <div class="cc-grid">
+      <div class="cc-item"><div class="lbl">Utilizado</div><div class="val">R$ 3.800,00</div></div>
+      <div class="cc-item"><div class="lbl">Disponível</div><div class="val">R$ 200,00</div></div>
+      <div class="cc-item"><div class="lbl">Limite total</div><div class="val">R$ 4.000,00</div></div>
+      <div class="cc-item"><div class="lbl">Próx. fatura</div><div class="val">R$ 2.100,00</div></div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;opacity:0.7;margin-bottom:4px;">
+        <span>Uso do limite</span><span>95%</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:95%;"></div></div>
+    </div>
+    <div class="cc-foot"><span>Fecha dia 5</span><span>Vence dia 12</span></div>
+  </div>
+</div>
+</body>
+</html>

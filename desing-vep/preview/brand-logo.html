@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: white; padding: 28px 32px; display: flex; flex-direction: column; gap: 28px; }
+  .caption { font-size: 10px; color: #bbb; margin-top: 6px; font-family: monospace; }
+  .lockups { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- Primary wordmark -->
+<div>
+  <div style="display:flex;align-items:baseline;gap:6px;">
+    <span style="font-size:40px;font-weight:900;letter-spacing:-0.04em;color:#0f172a;">VeP</span>
+    <span style="font-size:40px;font-weight:300;letter-spacing:-0.02em;color:#0f172a;">Finance</span>
+  </div>
+  <div class="caption">Wordmark principal — claro</div>
+</div>
+
+<!-- Variations -->
+<div class="lockups">
+
+  <!-- All black -->
+  <div>
+    <div style="display:flex;align-items:baseline;gap:5px;">
+      <span style="font-size:22px;font-weight:900;letter-spacing:-0.04em;color:#0f172a;">VeP</span>
+      <span style="font-size:22px;font-weight:300;letter-spacing:-0.02em;color:#0f172a;">Finance</span>
+    </div>
+    <div class="caption">Preto puro ✓</div>
+  </div>
+
+  <!-- Muted Finance -->
+  <div>
+    <div style="display:flex;align-items:baseline;gap:5px;">
+      <span style="font-size:22px;font-weight:900;letter-spacing:-0.04em;color:#0f172a;">VeP</span>
+      <span style="font-size:22px;font-weight:300;letter-spacing:-0.02em;color:#64748b;">Finance</span>
+    </div>
+    <div class="caption">Finance muted</div>
+  </div>
+
+  <!-- Dark bg -->
+  <div style="background:#0f172a;padding:14px 20px;border-radius:12px;">
+    <div style="display:flex;align-items:baseline;gap:5px;">
+      <span style="font-size:22px;font-weight:900;letter-spacing:-0.04em;color:#fff;">VeP</span>
+      <span style="font-size:22px;font-weight:300;letter-spacing:-0.02em;color:rgba(255,255,255,0.65);">Finance</span>
+    </div>
+    <div class="caption" style="color:#444;">Dark bg</div>
+  </div>
+
+  <!-- Monogram badge -->
+  <div>
+    <div style="width:44px;height:44px;background:#0f172a;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+      <span style="font-size:15px;font-weight:900;letter-spacing:-0.04em;color:white;">VeP</span>
+    </div>
+    <div class="caption">App icon</div>
+  </div>
+
+  <!-- Compact inline -->
+  <div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:28px;height:28px;background:#0f172a;border-radius:6px;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:9px;font-weight:900;color:white;letter-spacing:-0.02em;">VeP</span>
+      </div>
+      <span style="font-size:16px;font-weight:700;letter-spacing:-0.02em;color:#0f172a;">VeP Finance</span>
+    </div>
+    <div class="caption">Sidebar lockup</div>
+  </div>
+
+</div>
+</body>
+</html>

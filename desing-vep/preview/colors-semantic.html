@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fafafa; padding: 20px; }
+  .grid { display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip-group { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+  .pair { display: flex; flex-direction: column; gap: 2px; }
+  .chip { width: 60px; height: 44px; border-radius: 8px; }
+  .chip-bg { width: 60px; height: 24px; border-radius: 6px; opacity: 0.25; margin-top: -8px; }
+  .label { font-size: 10px; color: #555; text-align: center; margin-top: 4px; }
+  .val { font-size: 9px; color: #999; text-align: center; font-family: monospace; }
+  .section { display: flex; flex-direction: column; gap: 6px; margin-right: 16px; }
+  .section-title { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #bbb; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="section">
+    <div class="section-title">Receitas</div>
+    <div class="chip-group">
+      <div class="chip" style="background:#10b981;"></div>
+      <div class="chip" style="background:#d1fae5; height:20px;"></div>
+      <div class="label">Income</div>
+      <div class="val">#10b981</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Despesas</div>
+    <div class="chip-group">
+      <div class="chip" style="background:#ef4444;"></div>
+      <div class="chip" style="background:#fee2e2; height:20px;"></div>
+      <div class="label">Expense</div>
+      <div class="val">#ef4444</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Saldo +</div>
+    <div class="chip-group">
+      <div class="chip" style="background:#3b82f6;"></div>
+      <div class="chip" style="background:#dbeafe; height:20px;"></div>
+      <div class="label">Balance+</div>
+      <div class="val">#3b82f6</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Saldo −</div>
+    <div class="chip-group">
+      <div class="chip" style="background:#f97316;"></div>
+      <div class="chip" style="background:#ffedd5; height:20px;"></div>
+      <div class="label">Balance−</div>
+      <div class="val">#f97316</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Gasto/dia</div>
+    <div class="chip-group">
+      <div class="chip" style="background:#8b5cf6;"></div>
+      <div class="chip" style="background:#ede9fe; height:20px;"></div>
+      <div class="label">Daily</div>
+      <div class="val">#8b5cf6</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Destrutivo</div>
+    <div class="chip-group">
+      <div class="chip" style="background:oklch(0.577 0.245 27.325);"></div>
+      <div class="chip" style="background:#fee2e2; height:20px;"></div>
+      <div class="label">Destructive</div>
+      <div class="val">oklch 0.577</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fafafa; padding: 20px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { display: flex; flex-direction: column; gap: 4px; }
+  .chip { width: 64px; height: 48px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); }
+  .label { font-size: 10px; color: #888; text-align: center; }
+  .val { font-size: 9px; color: #aaa; text-align: center; font-family: monospace; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="swatch">
+    <div class="chip" style="background: #ffffff; box-shadow: inset 0 0 0 1px #e5e7eb;"></div>
+    <div class="label">Background</div>
+    <div class="val">#ffffff</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.985 0 0);"></div>
+    <div class="label">Sidebar</div>
+    <div class="val">oklch 0.985</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.97 0 0);"></div>
+    <div class="label">Muted</div>
+    <div class="val">oklch 0.97</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.922 0 0);"></div>
+    <div class="label">Border</div>
+    <div class="val">oklch 0.922</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.708 0 0);"></div>
+    <div class="label">Ring</div>
+    <div class="val">oklch 0.708</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.556 0 0);"></div>
+    <div class="label">Muted FG</div>
+    <div class="val">oklch 0.556</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.371 0 0);"></div>
+    <div class="label">Dim</div>
+    <div class="val">oklch 0.371</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.205 0 0);"></div>
+    <div class="label">Primary</div>
+    <div class="val">oklch 0.205</div>
+  </div>
+  <div class="swatch">
+    <div class="chip" style="background: oklch(0.145 0 0);"></div>
+    <div class="label">Foreground</div>
+    <div class="val">oklch 0.145</div>
+  </div>
+</div>
+</body>
+</html>

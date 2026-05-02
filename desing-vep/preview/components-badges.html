@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: white; padding: 20px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .badge {
+    display: inline-flex; align-items: center; height: 22px; padding: 0 8px;
+    border-radius: 9999px; font-size: 12px; font-weight: 500;
+  }
+  .badge-default  { background: #171717; color: #fafafa; }
+  .badge-secondary{ background: #f4f4f5; color: #3f3f46; }
+  .badge-outline  { background: white; color: #3f3f46; border: 1px solid #e4e4e7; }
+  .badge-paid     { background: #d1fae5; color: #065f46; }
+  .badge-pending  { background: #fef3c7; color: #92400e; }
+  .badge-parceled { background: #dbeafe; color: #1e40af; }
+  .badge-over     { background: #fee2e2; color: #991b1b; }
+  .sep { color: #ddd; }
+</style>
+</head>
+<body>
+<div class="row">
+  <span class="badge badge-default">Pago</span>
+  <span class="badge badge-secondary">Pendente</span>
+  <span class="badge badge-outline">Parcelado</span>
+  <span class="sep">|</span>
+  <span class="badge badge-paid">Pago</span>
+  <span class="badge badge-pending">Pendente</span>
+  <span class="badge badge-parceled">Parcelado</span>
+  <span class="sep">|</span>
+  <span class="badge badge-over">Excedeu</span>
+  <span class="badge" style="background:#ede9fe;color:#5b21b6;">80% usado</span>
+  <span class="badge" style="background:#fef3c7;color:#92400e;">Vence hoje</span>
+  <span class="badge" style="background:#f4f4f5;color:#71717a;">Aberta</span>
+  <span class="badge" style="background:#d1fae5;color:#065f46;">Recebida</span>
+</div>
+</body>
+</html>

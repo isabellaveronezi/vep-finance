@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: white; padding: 20px 24px; display: flex; flex-direction: column; gap: 20px; }
+  .section-title { font-size: 9px; text-transform: uppercase; letter-spacing: 0.09em; color: #cbd5e1; font-weight: 600; margin-bottom: 10px; }
+  .row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+  /* Radius */
+  .radius-box { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .radius-demo { background: #f1f5f9; border: 1.5px solid #e2e8f0; width: 52px; height: 40px; }
+  .r-label { font-size: 10px; color: #64748b; font-weight: 500; }
+  .r-val   { font-size: 9px; color: #cbd5e1; font-family: 'Geist Mono', monospace; }
+  /* Spacing */
+  .space-row { display: flex; align-items: flex-end; gap: 6px; }
+  .space-block { background: #6366f1; border-radius: 3px; width: 20px; }
+  .space-label { font-size: 9px; color: #94a3b8; text-align: center; margin-top: 4px; font-family: 'Geist Mono', monospace; }
+  /* Progress */
+  .bar-row { display: flex; flex-direction: column; gap: 7px; }
+  .bar-item { display: flex; align-items: center; gap: 8px; }
+  .bar-track { flex: 1; height: 7px; background: #f1f5f9; border-radius: 9999px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 9999px; }
+  .bar-label { font-size: 10px; color: #94a3b8; min-width: 36px; }
+  .bar-pct { font-size: 10px; color: #94a3b8; min-width: 28px; text-align: right; font-family: 'Geist Mono', monospace; }
+  /* Shadows */
+  .shadow-row { display: flex; gap: 14px; align-items: flex-end; }
+  .shadow-box { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .shadow-chip { width: 52px; height: 36px; background: white; border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<!-- Border radius -->
+<div>
+  <div class="section-title">Border Radius</div>
+  <div class="row">
+    <div class="radius-box"><div class="radius-demo" style="border-radius:6px;"></div><div class="r-label">sm</div><div class="r-val">6px</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:8px;"></div><div class="r-label">md</div><div class="r-val">8px — btn</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:10px;"></div><div class="r-label">lg</div><div class="r-val">10px — list</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:14px;"></div><div class="r-label">xl</div><div class="r-val">14px — card</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:18px;"></div><div class="r-label">2xl</div><div class="r-val">18px — cc</div></div>
+    <div class="radius-box"><div class="radius-demo" style="border-radius:9999px;"></div><div class="r-label">full</div><div class="r-val">pill / badge</div></div>
+  </div>
+</div>
+
+<!-- Spacing scale -->
+<div>
+  <div class="section-title">Spacing Scale</div>
+  <div style="display:flex; gap:6px; align-items:flex-end;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="width:20px;height:4px;background:#6366f1;border-radius:2px;"></div><div class="space-label">4</div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="width:20px;height:8px;background:#6366f1;border-radius:2px;"></div><div class="space-label">8</div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="width:20px;height:12px;background:#6366f1;border-radius:2px;"></div><div class="space-label">12</div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="width:20px;height:16px;background:#6366f1;border-radius:2px;"></div><div class="space-label">16</div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="width:20px;height:20px;background:#6366f1;border-radius:2px;"></div><div class="space-label">20</div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="width:20px;height:24px;background:#6366f1;border-radius:2px;"></div><div class="space-label">24</div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="width:20px;height:32px;background:#6366f1;border-radius:2px;"></div><div class="space-label">32</div></div>
+    <div style="margin-left:8px;display:flex;flex-direction:column;gap:3px;justify-content:flex-end;padding-bottom:14px;">
+      <div style="font-size:10px;color:#94a3b8;"><span style="font-family:'Geist Mono',monospace;color:#64748b;">p-3</span> → 12px nav item</div>
+      <div style="font-size:10px;color:#94a3b8;"><span style="font-family:'Geist Mono',monospace;color:#64748b;">p-4</span> → 16px list item</div>
+      <div style="font-size:10px;color:#94a3b8;"><span style="font-family:'Geist Mono',monospace;color:#64748b;">p-5</span> → 20px card</div>
+    </div>
+  </div>
+</div>
+
+<!-- Progress bar states -->
+<div>
+  <div class="section-title">Budget Progress States</div>
+  <div class="bar-row" style="max-width:320px;">
+    <div class="bar-item"><div class="bar-label" style="color:#10b981;font-weight:600;">OK</div><div class="bar-track"><div class="bar-fill" style="width:44%;background:#10b981;"></div></div><div class="bar-pct">44%</div></div>
+    <div class="bar-item"><div class="bar-label" style="color:#eab308;font-weight:600;">Atenção</div><div class="bar-track"><div class="bar-fill" style="width:65%;background:#eab308;"></div></div><div class="bar-pct">65%</div></div>
+    <div class="bar-item"><div class="bar-label" style="color:#f59e0b;font-weight:600;">Alerta</div><div class="bar-track"><div class="bar-fill" style="width:87%;background:#f59e0b;"></div></div><div class="bar-pct">87%</div></div>
+    <div class="bar-item"><div class="bar-label" style="color:#ef4444;font-weight:600;">Excedeu</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:#ef4444;"></div></div><div class="bar-pct">108%</div></div>
+  </div>
+</div>
+
+<!-- Shadow system -->
+<div>
+  <div class="section-title">Shadow System</div>
+  <div class="shadow-row">
+    <div class="shadow-box"><div class="shadow-chip" style="box-shadow:none;border:1px solid #e2e8f0;"></div><div class="r-val">none</div><div class="space-label">border only</div></div>
+    <div class="shadow-box"><div class="shadow-chip" style="box-shadow:0 1px 3px rgba(0,0,0,0.08);"></div><div class="r-val">sm</div><div class="space-label">cards</div></div>
+    <div class="shadow-box"><div class="shadow-chip" style="box-shadow:0 4px 12px rgba(0,0,0,0.14);"></div><div class="r-val">md</div><div class="space-label">credit cards</div></div>
+    <div class="shadow-box"><div class="shadow-chip" style="box-shadow:0 20px 60px rgba(0,0,0,0.18);"></div><div class="r-val">xl</div><div class="space-label">modals</div></div>
+  </div>
+</div>
+
+</body>
+</html>

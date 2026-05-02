@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #fafafa; padding: 20px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+  .chip { width: 64px; height: 48px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); }
+  .label { font-size: 10px; color: #888; text-align: center; }
+  .val { font-size: 9px; color: #aaa; text-align: center; font-family: monospace; }
+  .sep { width: 1px; height: 56px; background: #e5e7eb; margin: 0 4px; }
+</style>
+</head>
+<body>
+<div class="row">
+  <!-- Brand navy scale -->
+  <div class="swatch"><div class="chip" style="background:#f0f4ff;"></div><div class="label">Navy 50</div><div class="val">#f0f4ff</div></div>
+  <div class="swatch"><div class="chip" style="background:#c7d4f0;"></div><div class="label">Navy 100</div><div class="val">#c7d4f0</div></div>
+  <div class="swatch"><div class="chip" style="background:#3b5bdb;"></div><div class="label">Navy 500</div><div class="val">#3b5bdb</div></div>
+  <div class="swatch"><div class="chip" style="background:#1e3a8a;"></div><div class="label">Navy 700</div><div class="val">#1e3a8a</div></div>
+  <div class="swatch"><div class="chip" style="background:#0f172a;"></div><div class="label">Navy 900</div><div class="val">#0f172a</div></div>
+  <div class="sep"></div>
+  <!-- Neutrals -->
+  <div class="swatch"><div class="chip" style="background:#ffffff;box-shadow:inset 0 0 0 1px #e5e7eb;"></div><div class="label">White</div><div class="val">#ffffff</div></div>
+  <div class="swatch"><div class="chip" style="background:#f8fafc;"></div><div class="label">Slate 50</div><div class="val">#f8fafc</div></div>
+  <div class="swatch"><div class="chip" style="background:#e2e8f0;"></div><div class="label">Slate 200</div><div class="val">#e2e8f0</div></div>
+  <div class="swatch"><div class="chip" style="background:#64748b;"></div><div class="label">Slate 500</div><div class="val">#64748b</div></div>
+  <div class="swatch"><div class="chip" style="background:#1e293b;"></div><div class="label">Slate 800</div><div class="val">#1e293b</div></div>
+</div>
+</body>
+</html>

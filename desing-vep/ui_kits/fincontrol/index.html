@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VeP Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="theme.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body, #root { height: 100%; }
+  body { font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="Sidebar.jsx"></script>
+<script type="text/babel" src="Dashboard.jsx"></script>
+<script type="text/babel" src="Transacoes.jsx"></script>
+<script type="text/babel" src="Cartoes.jsx"></script>
+<script type="text/babel" src="Orcamentos.jsx"></script>
+<script type="text/babel" src="Metas.jsx"></script>
+<script type="text/babel" src="Categorias.jsx"></script>
+<script type="text/babel" src="ContasFixas.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const ACTIVE_PAGES = new Set(['dashboard','transacoes','cartoes','orcamentos','metas','categorias','contas-fixas']);
+
+function App() {
+  const [page, setPage]     = useState(() => localStorage.getItem('fc_page') || 'dashboard');
+  const [dark, setDark]     = useState(() => localStorage.getItem('fc_dark') === '1');
+  const [layout, setLayout] = useState(() => localStorage.getItem('fc_layout') || 'default');
+
+  useEffect(() => { localStorage.setItem('fc_page', page); }, [page]);
+  useEffect(() => { localStorage.setItem('fc_dark', dark ? '1' : '0'); }, [dark]);
+  useEffect(() => { localStorage.setItem('fc_layout', layout); }, [layout]);
+
+  const T = dark ? window.DARK : window.LIGHT;
+
+  const pages = {
+    dashboard:    window.DashboardPage,
+    transacoes:   window.TransacoesPage,
+    cartoes:      window.CartoesPage,
+    orcamentos:   window.OrcamentosPage,
+    metas:        window.MetasPage,
+    categorias:   window.CategoriasPage,
+    'contas-fixas': window.ContasFixasPage,
+  };
+  const Page = pages[page] || pages.dashboard;
+
+  return (
+    <div style={{ display:'flex', height:'100vh', overflow:'hidden', background: T.bgPage, transition:'background 0.2s' }}>
+      <window.Sidebar activePage={page} onNavigate={setPage} T={T} dark={dark} onToggleDark={() => setDark(d => !d)} activePagesSet={ACTIVE_PAGES} />
+      <main style={{ flex:1, overflowY:'auto', padding:'28px 32px', background: T.bgPage }}>
+        <Page T={T} onNavigate={setPage} layout={layout} onLayoutChange={setLayout} />
+      </main>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

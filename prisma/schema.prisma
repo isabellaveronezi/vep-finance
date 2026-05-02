@@ -1,0 +1,313 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Usuário ──────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transacoes       Transacao[]
+  categorias       Categoria[]
+  cartoes          Cartao[]
+  contasFixas      ContaFixa[]
+  orcamentos       Orcamento[]
+  metas            Meta[]
+  alertas          Alerta[]
+  dividasTerceiros DividaTerceiro[]
+  dividasProprias  DividaPropria[]
+
+  @@map("users")
+}
+
+// ─── Categoria ────────────────────────────────────────────
+
+model Categoria {
+  id        String        @id @default(cuid())
+  nome      String
+  tipo      TipoTransacao
+  icone     String?
+  cor       String?
+  ativo     Boolean       @default(true)
+  createdAt DateTime      @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  subcategorias Subcategoria[]
+  transacoes    Transacao[]
+  orcamentos    Orcamento[]
+  contasFixas   ContaFixa[]
+
+  @@map("categorias")
+}
+
+model Subcategoria {
+  id    String  @id @default(cuid())
+  nome  String
+  ativo Boolean @default(true)
+
+  categoriaId String
+  categoria   Categoria @relation(fields: [categoriaId], references: [id], onDelete: Cascade)
+
+  transacoes Transacao[]
+
+  @@map("subcategorias")
+}
+
+// ─── Cartão ───────────────────────────────────────────────
+
+model Cartao {
+  id            String   @id @default(cuid())
+  nome          String
+  bandeira      String?
+  limite        Float?
+  diaFechamento Int
+  diaVencimento Int
+  cor           String?
+  ativo         Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  transacoes       Transacao[]
+  dividasTerceiros DividaTerceiro[]
+
+  @@map("cartoes")
+}
+
+// ─── Transação ────────────────────────────────────────────
+
+model Transacao {
+  id             String          @id @default(cuid())
+  descricao      String
+  tipo           TipoTransacao
+  valor          Float
+  data           DateTime
+  status         StatusTransacao @default(PENDENTE)
+  formaPagamento FormaPagamento?
+  observacao     String?
+  origem         OrigemTransacao @default(MANUAL)
+  numeroParcela  Int?
+  totalParcelas  Int?
+  recorrente     Boolean         @default(false)
+  contaOrcamento Boolean         @default(false)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categoriaId String?
+  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
+
+  subcategoriaId String?
+  subcategoria   Subcategoria? @relation(fields: [subcategoriaId], references: [id])
+
+  cartaoId String?
+  cartao   Cartao? @relation(fields: [cartaoId], references: [id])
+
+  dividaId String?
+  divida   DividaTerceiro? @relation(fields: [dividaId], references: [id])
+
+  contaFixaId String?
+  contaFixa   ContaFixa? @relation(fields: [contaFixaId], references: [id])
+
+  dividaPropiaId String?
+  dividaPropia   DividaPropria? @relation(fields: [dividaPropiaId], references: [id])
+
+  @@map("transacoes")
+}
+
+// ─── Conta Fixa ───────────────────────────────────────────
+
+model ContaFixa {
+  id            String        @id @default(cuid())
+  descricao     String
+  tipo          TipoTransacao @default(SAIDA)
+  valor         Float
+  diaVencimento Int
+  dataInicio    DateTime?
+  recorrente    Boolean       @default(true)
+  ativo         Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categoriaId String?
+  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
+
+  transacoes Transacao[]
+
+  @@map("contas_fixas")
+}
+
+// ─── Orçamento ────────────────────────────────────────────
+
+model Orcamento {
+  id          String   @id @default(cuid())
+  valorLimite Float
+  mesAno      String
+  /// null = limite global do mês (sem categoria específica)
+  categoriaId String?
+  createdAt   DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categoria Categoria? @relation(fields: [categoriaId], references: [id])
+
+  @@unique([userId, categoriaId, mesAno])
+  @@map("orcamentos")
+}
+
+// ─── Meta ─────────────────────────────────────────────────
+
+model Meta {
+  id            String    @id @default(cuid())
+  nome          String
+  descricao     String?
+  valorObjetivo Float
+  valorAtual    Float     @default(0)
+  aportesMensal Float?
+  prazoEstimado DateTime?
+  icone         String?
+  ativo         Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("metas")
+}
+
+// ─── Alerta ───────────────────────────────────────────────
+
+model Alerta {
+  id        String     @id @default(cuid())
+  tipo      TipoAlerta
+  mensagem  String
+  lido      Boolean    @default(false)
+  enviado   Boolean    @default(false)
+  createdAt DateTime   @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("alertas")
+}
+
+// ─── Dívida de Terceiro ───────────────────────────────────
+
+model DividaTerceiro {
+  id            String          @id @default(cuid())
+  nomeDevedor   String
+  descricao     String?
+  valorTotal    Float
+  valorRecebido Float           @default(0)
+  vencimento    DateTime?
+  status        StatusDivida    @default(ABERTA)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  cartaoId       String?
+  cartao         Cartao?         @relation(fields: [cartaoId], references: [id])
+  formaPagamento FormaPagamento?
+  grupo          String?
+
+  transacoes Transacao[]
+
+  @@map("dividas_terceiros")
+}
+
+// ─── Dívida Própria ───────────────────────────────────────
+// Representa valores que VOCÊ deve a terceiros.
+// Cada pagamento gera uma Transacao SAIDA vinculada via dividaPropiaId.
+// saldoRestante = valorTotal - valorPago (calculado na aplicação)
+
+model DividaPropria {
+  id         String              @id @default(cuid())
+  credor     String
+  descricao  String?
+  valorTotal Float
+  parcelas   Int?
+  vencimento DateTime?
+  status     StatusDividaPropria @default(ABERTA)
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  transacoes Transacao[]
+
+  @@map("dividas_proprias")
+}
+
+// ─── Enums ────────────────────────────────────────────────
+
+enum TipoTransacao {
+  ENTRADA
+  SAIDA
+}
+
+enum StatusTransacao {
+  PAGO
+  PENDENTE
+  PARCELADO
+}
+
+enum FormaPagamento {
+  DINHEIRO
+  PIX
+  DEBITO
+  CREDITO
+  BOLETO
+  TRANSFERENCIA
+}
+
+enum OrigemTransacao {
+  MANUAL
+  WHATSAPP
+  IMPORTACAO
+}
+
+enum TipoAlerta {
+  ORCAMENTO_80
+  ORCAMENTO_90
+  ORCAMENTO_100
+  VENCIMENTO_CONTA
+  CARTAO_LIMITE
+  SOBRA_BAIXA
+  META_CONCLUIDA
+}
+
+enum StatusDivida {
+  ABERTA
+  RECEBIDA
+  PARCIAL
+}
+
+enum StatusDividaPropria {
+  ABERTA
+  QUITADA
+}

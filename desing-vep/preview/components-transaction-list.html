@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: white; padding: 16px; }
+  .list { display: flex; flex-direction: column; gap: 3px; }
+  .item {
+    display: flex; align-items: center; gap: 12px;
+    border: 1px solid #e5e7eb; border-radius: 10px;
+    padding: 10px 16px; background: white;
+  }
+  .icon { width: 20px; height: 20px; flex-shrink: 0; }
+  .info { flex: 1; min-width: 0; }
+  .desc { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .meta { font-size: 11px; color: #888; margin-top: 1px; }
+  .amount { font-family: 'Inter', monospace; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+  .badge { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 9999px; font-size: 11px; font-weight: 500; border: 1px solid #e4e4e7; flex-shrink: 0; }
+  svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+</head>
+<body>
+<div class="list">
+  <div class="item">
+    <svg class="icon" style="color:#10b981;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+    <div class="info">
+      <div class="desc">Salário mensal</div>
+      <div class="meta">20/04/2026 · 💼 Trabalho</div>
+    </div>
+    <span class="amount" style="color:#10b981;">+R$ 6.800,00</span>
+    <span class="badge" style="background:#d1fae5;color:#065f46;border-color:#a7f3d0;">Pago</span>
+  </div>
+  <div class="item">
+    <svg class="icon" style="color:#ef4444;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+    <div class="info">
+      <div class="desc">Supermercado Extra</div>
+      <div class="meta">19/04/2026 · 🛒 Alimentação · Nubank</div>
+    </div>
+    <span class="amount" style="color:#ef4444;">−R$ 312,40</span>
+    <span class="badge" style="background:#d1fae5;color:#065f46;border-color:#a7f3d0;">Pago</span>
+  </div>
+  <div class="item">
+    <svg class="icon" style="color:#ef4444;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+    <div class="info">
+      <div class="desc">Netflix</div>
+      <div class="meta">18/04/2026 · 🎬 Streaming · 2/12x</div>
+    </div>
+    <span class="amount" style="color:#ef4444;">−R$ 55,90</span>
+    <span class="badge" style="color:#3f3f46;border-color:#e4e4e7;">Parcelado</span>
+  </div>
+  <div class="item">
+    <svg class="icon" style="color:#ef4444;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg>
+    <div class="info">
+      <div class="desc">Aluguel</div>
+      <div class="meta">01/04/2026 · 🏠 Moradia</div>
+    </div>
+    <span class="amount" style="color:#ef4444;">−R$ 1.800,00</span>
+    <span class="badge" style="background:#fef3c7;color:#92400e;border-color:#fde68a;">Pendente</span>
+  </div>
+</div>
+</body>
+</html>
