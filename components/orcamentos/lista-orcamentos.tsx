@@ -195,12 +195,12 @@ export function ListaOrcamentos({ mesAno, cards, limiteGlobal, totalGasto, categ
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-[-0.01em]">Orçamentos</h1>
           <p className="text-xs text-muted-foreground capitalize">{mesLabel}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="sm" onClick={() => setDialog('novo-limite')}>
             <Plus className="h-4 w-4 mr-1" /> Limite por categoria
           </Button>

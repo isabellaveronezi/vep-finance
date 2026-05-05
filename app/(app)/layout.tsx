@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { auth } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { Sidebar } from '@/components/layout/sidebar'
@@ -12,11 +14,11 @@ export default async function AppLayout({
   if (!session) redirect('/login')
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen overflow-x-hidden">
       <Sidebar />
-      <div className="flex flex-col flex-1">
+      <div className="flex min-w-0 flex-col flex-1">
         <Header userName={session.user?.name} />
-        <main className="flex-1 p-6 bg-muted/30">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden bg-muted/30 p-4 md:p-6">{children}</main>
       </div>
     </div>
   )

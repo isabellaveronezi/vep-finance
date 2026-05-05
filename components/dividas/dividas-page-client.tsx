@@ -40,10 +40,10 @@ export function DividasPageClient({ dividas, dividasTerceiros, cartoes, hoje }: 
   const saldoLiquido = totalReceber - totalDevendo
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 overflow-x-hidden">
       {/* ─── Header ──────────────────────────────────────────── */}
       <div className="rounded-[28px] border border-border/70 bg-background p-4 shadow-[0_1px_0_rgba(15,23,42,0.04),0_14px_32px_rgba(15,23,42,0.05)] sm:p-5">
-        <div className="mb-5 flex items-start justify-between gap-4">
+        <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
               {format(now, "MMMM 'de' yyyy", { locale: ptBR })} · Finanças
@@ -128,17 +128,17 @@ function MetricBlock({
   tone: 'positive' | 'negative'
 }) {
   return (
-    <div className="px-4 py-4 sm:px-5">
-      <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
+    <div className="px-2.5 py-3.5 sm:px-5 sm:py-4">
+      <p className="text-[9px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:text-[10px]">{label}</p>
       <p className={cn(
-        'mt-1.5 text-lg font-semibold tabular-nums tracking-tight sm:text-xl',
+        'mt-1 text-sm font-semibold tabular-nums tracking-tight sm:mt-1.5 sm:text-xl',
         tone === 'positive'
           ? 'text-emerald-600 dark:text-emerald-400'
           : 'text-rose-600 dark:text-rose-400',
       )}>
         {value}
       </p>
-      <p className="mt-0.5 text-[11px] text-muted-foreground">{sub}</p>
+      <p className="mt-0.5 hidden text-[11px] text-muted-foreground sm:block">{sub}</p>
     </div>
   )
 }
@@ -163,7 +163,7 @@ function TabPill({
       type="button"
       onClick={onClick}
       className={cn(
-        'flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-150',
+        'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-xs font-medium transition-all duration-150 sm:gap-2 sm:px-4 sm:text-sm',
         active
           ? 'bg-foreground text-background shadow-sm'
           : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground',

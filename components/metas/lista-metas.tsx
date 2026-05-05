@@ -66,7 +66,7 @@ export function ListaMetas({ metas, hoje: hojeIso }: ListaMetasProps) {
 
       {/* Stats */}
       {ativas.length > 0 && (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border bg-card p-4">
             <div className="flex items-center gap-2 mb-1">
               <Target className="h-3.5 w-3.5 text-muted-foreground" />

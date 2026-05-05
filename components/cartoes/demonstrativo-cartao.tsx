@@ -156,22 +156,22 @@ export function DemonstrativoCartao({ cartao, transacoes, categorias, cartoes }:
   const isFaturaProxima = faturaAtiva.getTime() === faturaProxima.getTime()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 overflow-x-hidden">
       {/* Cabeçalho */}
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <Link href="/cartoes" className={buttonVariants({ variant: 'ghost', size: 'icon' })}>
           <ArrowLeft className="h-4 w-4" />
         </Link>
-        <div className="flex-1">
-          <h1 className="text-2xl font-bold">{cartao.nome}</h1>
+        <div className="flex-1 min-w-0">
+          <h1 className="text-2xl font-bold truncate">{cartao.nome}</h1>
           <p className="text-muted-foreground text-sm mt-0.5">Demonstrativo de gastos</p>
         </div>
-        <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setPagando(true)}>
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto">
+          <Button variant="outline" className="flex-1 sm:flex-none" onClick={() => setPagando(true)}>
             <Wallet className="h-4 w-4 mr-2" />
             Pagar fatura {format(faturaAtiva, 'MMMM', { locale: ptBR })}
           </Button>
-          <Button onClick={() => setAdicionando(true)}>
+          <Button className="flex-1 sm:flex-none" onClick={() => setAdicionando(true)}>
             <Plus className="h-4 w-4 mr-2" />
             Nova compra
           </Button>
@@ -231,7 +231,7 @@ export function DemonstrativoCartao({ cartao, transacoes, categorias, cartoes }:
       </div>
 
       {/* Resumo da fatura ativa */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="border rounded-lg p-4 space-y-1">
           <p className="text-xs text-muted-foreground">Total de compras</p>
           <p className="text-xl font-bold">{formatCurrency(totalSaidas)}</p>
@@ -270,7 +270,7 @@ export function DemonstrativoCartao({ cartao, transacoes, categorias, cartoes }:
               value={categoriaFiltro}
               onValueChange={(v) => setCategoriaFiltro(v ?? 'todas')}
             >
-              <SelectTrigger className="w-48 h-8 text-sm">
+              <SelectTrigger className="w-full h-8 text-sm sm:w-48">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -286,7 +286,7 @@ export function DemonstrativoCartao({ cartao, transacoes, categorias, cartoes }:
               value={recorrenteFiltro}
               onValueChange={(v) => setRecorrenteFiltro((v ?? 'todos') as typeof recorrenteFiltro)}
             >
-              <SelectTrigger className="w-40 h-8 text-sm">
+              <SelectTrigger className="w-full h-8 text-sm sm:w-40">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -299,7 +299,7 @@ export function DemonstrativoCartao({ cartao, transacoes, categorias, cartoes }:
 
             {/* Total filtrado */}
             {filtroAtivo && (
-              <div className="ml-auto flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-xs">
+              <div className="flex w-full items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-xs sm:ml-auto sm:w-auto">
                 <span className="text-muted-foreground">
                   {transacoesFiltradas.length} item{transacoesFiltradas.length !== 1 ? 's' : ''} ·
                 </span>
@@ -309,11 +309,11 @@ export function DemonstrativoCartao({ cartao, transacoes, categorias, cartoes }:
 
             {/* Maior gasto (sem filtro ativo) */}
             {!filtroAtivo && categoriaTop && (
-              <div className="ml-auto flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-xs">
+              <div className="flex w-full items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-xs sm:ml-auto sm:w-auto">
                 <span className="text-muted-foreground">Maior gasto:</span>
-                <span className="font-medium">{categoriaTop.nome}</span>
+                <span className="min-w-0 truncate font-medium">{categoriaTop.nome}</span>
                 <span className="text-muted-foreground">·</span>
-                <span className="font-semibold">{formatCurrency(categoriaTop.total)}</span>
+                <span className="shrink-0 whitespace-nowrap font-semibold">{formatCurrency(categoriaTop.total)}</span>
               </div>
             )}
           </div>
@@ -342,65 +342,70 @@ export function DemonstrativoCartao({ cartao, transacoes, categorias, cartoes }:
               : 'bg-yellow-50 dark:bg-yellow-950/20'
 
             return (
-            <div key={t.id} className={`flex items-center gap-3 p-3 ${rowBg}`}>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  <p className="font-medium text-sm truncate">{t.descricao}</p>
-                  {t.recorrente && (
-                    <RefreshCw className="h-3 w-3 text-muted-foreground shrink-0" aria-label="Recorrente" />
-                  )}
-                  {t.contaOrcamento && (
-                    <span className="inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/40 px-1.5 py-0.5 text-[10px] font-medium text-purple-700 dark:text-purple-300 leading-none">
-                      gasto mensal
-                    </span>
-                  )}
+            <div key={t.id} className={`flex flex-col gap-1.5 overflow-x-hidden p-3 ${rowBg}`}>
+              {/* Linha 1: descrição + valor */}
+              <div className="flex items-start gap-2">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <p className="font-medium text-sm truncate">{t.descricao}</p>
+                    {t.recorrente && (
+                      <RefreshCw className="h-3 w-3 text-muted-foreground shrink-0" aria-label="Recorrente" />
+                    )}
+                    {t.contaOrcamento && (
+                      <span className="inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/40 px-1.5 py-0.5 text-[10px] font-medium text-purple-700 dark:text-purple-300 leading-none">
+                        gasto mensal
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 mt-0.5">
-                  <span className="text-xs text-muted-foreground">{formatDate(t.data)}</span>
-                  {t.categoria && (
-                    <span className="text-xs text-muted-foreground">· {t.categoria.nome}</span>
-                  )}
-                  {t.numeroParcela && t.totalParcelas && (
-                    <span className="text-xs text-muted-foreground">
-                      · {t.numeroParcela}/{t.totalParcelas}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="flex items-center gap-2 shrink-0">
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getStatusColor(t)}`}>
-                  {getStatusLabel(t)}
-                </span>
-                <span className={`font-semibold text-sm tabular-nums ${t.tipo === 'ENTRADA' ? 'text-green-600 dark:text-green-400' : ''}`}>
+                <span className={`shrink-0 whitespace-nowrap font-semibold text-sm tabular-nums ${t.tipo === 'ENTRADA' ? 'text-green-600 dark:text-green-400' : ''}`}>
                   {t.tipo === 'ENTRADA' ? '+' : ''}{formatCurrency(t.valor)}
                 </span>
-                {t.tipo === 'SAIDA' && (
+              </div>
+
+              {/* Linha 2: data/categoria + badge + botões */}
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="flex min-w-0 flex-1 items-center gap-1.5 text-xs text-muted-foreground">
+                  <span className="shrink-0">{formatDate(t.data)}</span>
+                  {t.categoria && (
+                    <span className="truncate">· {t.categoria.nome}</span>
+                  )}
+                  {t.numeroParcela && t.totalParcelas && (
+                    <span className="shrink-0">· {t.numeroParcela}/{t.totalParcelas}</span>
+                  )}
+                </div>
+                <div className="flex w-full shrink-0 items-center justify-end gap-1 sm:w-auto">
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${getStatusColor(t)}`}>
+                    {getStatusLabel(t)}
+                  </span>
+                  {t.tipo === 'SAIDA' && (
+                    <Button
+                      variant="ghost" size="icon"
+                      className={`h-7 w-7 ${t.contaOrcamento ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
+                      disabled={isPending}
+                      title={t.contaOrcamento ? 'Remover do gasto mensal' : 'Incluir no gasto mensal'}
+                      onClick={() => startTransition(() => toggleContaOrcamento(t.id, cartao.id))}
+                    >
+                      <LayoutGrid className="h-3.5 w-3.5" />
+                    </Button>
+                  )}
                   <Button
                     variant="ghost" size="icon"
-                    className={`h-7 w-7 ${t.contaOrcamento ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`}
+                    className="h-7 w-7 text-muted-foreground hover:text-foreground"
                     disabled={isPending}
-                    title={t.contaOrcamento ? 'Remover do gasto mensal' : 'Incluir no gasto mensal'}
-                    onClick={() => startTransition(() => toggleContaOrcamento(t.id, cartao.id))}
+                    onClick={() => setEditando(t)}
                   >
-                    <LayoutGrid className="h-3.5 w-3.5" />
+                    <Pencil className="h-3.5 w-3.5" />
                   </Button>
-                )}
-                <Button
-                  variant="ghost" size="icon"
-                  className="h-7 w-7 text-muted-foreground hover:text-foreground"
-                  disabled={isPending}
-                  onClick={() => setEditando(t)}
-                >
-                  <Pencil className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                  variant="ghost" size="icon"
-                  className="h-7 w-7 text-muted-foreground hover:text-destructive"
-                  disabled={isPending}
-                  onClick={() => setDeletando(t)}
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
-                </Button>
+                  <Button
+                    variant="ghost" size="icon"
+                    className="h-7 w-7 text-muted-foreground hover:text-destructive"
+                    disabled={isPending}
+                    onClick={() => setDeletando(t)}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
               </div>
             </div>
             )

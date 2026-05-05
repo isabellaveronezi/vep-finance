@@ -128,7 +128,7 @@ export function GraficoCategorias({ dados, totalDespesas, transacoes }: GraficoC
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 overflow-x-hidden">
       {/* Donut */}
       <ResponsiveContainer width="100%" height={220}>
         <PieChart>
@@ -141,11 +141,10 @@ export function GraficoCategorias({ dados, totalDespesas, transacoes }: GraficoC
             innerRadius={60}
             outerRadius={90}
             paddingAngle={2}
-            activeIndex={ativo}
-            activeShape={ActiveShape}
+            {...{ activeIndex: ativo, activeShape: ActiveShape }}
             onMouseEnter={(_, i) => setAtivo(i)}
             onMouseLeave={() => setAtivo(undefined)}
-            onClick={(entry) => handleClick(entry as { id: string })}
+            onClick={(entry) => handleClick(entry as unknown as { id: string })}
             style={{ cursor: 'pointer' }}
           >
             {chartData.map((d) => (
@@ -169,12 +168,14 @@ export function GraficoCategorias({ dados, totalDespesas, transacoes }: GraficoC
             key={d.id}
             type="button"
             onClick={() => handleClick(d)}
-            className={`w-full flex items-center gap-3 rounded-lg px-2 py-1.5 text-left transition-colors hover:bg-muted/60 ${filtro === d.id ? 'bg-muted' : ''}`}
+            className={`grid w-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-2 gap-y-1 rounded-lg px-2 py-1.5 text-left transition-colors hover:bg-muted/60 sm:grid-cols-[minmax(0,1fr)_auto_auto] ${filtro === d.id ? 'bg-muted' : ''}`}
           >
-            <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: d.fill }} />
-            <span className="flex-1 truncate text-sm">{d.nome}</span>
-            <span className="text-xs text-muted-foreground tabular-nums">{d.pct.toFixed(0)}%</span>
-            <span className="text-sm font-medium tabular-nums">{formatCurrency(d.total)}</span>
+            <span className="flex min-w-0 items-center gap-3">
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: d.fill }} />
+              <span className="min-w-0 truncate text-sm">{d.nome}</span>
+            </span>
+            <span className="shrink-0 text-right text-sm font-medium tabular-nums whitespace-nowrap">{formatCurrency(d.total)}</span>
+            <span className="hidden shrink-0 text-xs text-muted-foreground tabular-nums whitespace-nowrap sm:inline">{d.pct.toFixed(0)}%</span>
           </button>
         ))}
       </div>
@@ -205,7 +206,7 @@ export function GraficoCategorias({ dados, totalDespesas, transacoes }: GraficoC
             <>
               <div className="divide-y rounded-lg border bg-background overflow-hidden">
                 {txVisiveis.map((t) => (
-                  <div key={t.id} className="flex items-center gap-3 px-3 py-2.5">
+                  <div key={t.id} className="flex flex-wrap items-center gap-2 px-3 py-2.5">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm truncate">{t.descricao}</p>
                       <p className="text-xs text-muted-foreground">{formatDate(t.data)}</p>
@@ -213,7 +214,7 @@ export function GraficoCategorias({ dados, totalDespesas, transacoes }: GraficoC
                     <Badge variant="outline" className={`text-xs shrink-0 ${STATUS_COR[t.status] ?? ''}`}>
                       {t.status === 'PAGO' ? 'Pago' : t.status === 'PARCELADO' ? 'Parcelado' : 'Pendente'}
                     </Badge>
-                    <span className="text-sm font-semibold tabular-nums shrink-0">
+                    <span className="text-sm font-semibold tabular-nums shrink-0 whitespace-nowrap">
                       {formatCurrency(t.valor)}
                     </span>
                   </div>

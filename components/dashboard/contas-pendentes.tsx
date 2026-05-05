@@ -29,7 +29,7 @@ export function ContasPendentes({ contas, hoje }: ContasPendentesProps) {
   }
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 overflow-x-hidden">
       {/* Pendentes primeiro */}
       {pendentes.map((c) => {
         const diff    = c.diaVencimento - hoje
@@ -37,25 +37,30 @@ export function ContasPendentes({ contas, hoje }: ContasPendentesProps) {
         const urgente = diff >= 0 && diff <= 3
 
         return (
-          <div key={c.id} className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-muted/50 transition-colors">
-            {vencida
-              ? <AlertCircle className="h-4 w-4 shrink-0 text-red-500" />
-              : urgente
-                ? <Clock className="h-4 w-4 shrink-0 text-yellow-500" />
-                : <Clock className="h-4 w-4 shrink-0 text-muted-foreground" />
-            }
-            <span className="flex-1 truncate text-sm">{c.descricao}</span>
-            <Badge
-              variant="outline"
-              className={`text-xs shrink-0 ${
-                vencida  ? 'bg-red-100 text-red-700 border-red-200' :
-                urgente  ? 'bg-yellow-100 text-yellow-700 border-yellow-200' :
-                           'bg-slate-100 text-slate-600 border-slate-200'
-              }`}
-            >
-              {vencida ? 'Vencida' : `Dia ${c.diaVencimento}`}
-            </Badge>
-            <span className="text-sm font-semibold tabular-nums shrink-0">
+          <div
+            key={c.id}
+            className="rounded-lg px-3 py-2.5 hover:bg-muted/50 transition-colors"
+          >
+            <div className="flex flex-wrap items-center gap-2 min-w-0">
+              {vencida
+                ? <AlertCircle className="h-4 w-4 shrink-0 text-red-500" />
+                : urgente
+                  ? <Clock className="h-4 w-4 shrink-0 text-yellow-500" />
+                  : <Clock className="h-4 w-4 shrink-0 text-muted-foreground" />
+              }
+              <span className="min-w-0 flex-1 truncate text-sm">{c.descricao}</span>
+              <Badge
+                variant="outline"
+                className={`ml-auto text-xs shrink-0 ${
+                  vencida  ? 'bg-red-100 text-red-700 border-red-200' :
+                  urgente  ? 'bg-yellow-100 text-yellow-700 border-yellow-200' :
+                             'bg-slate-100 text-slate-600 border-slate-200'
+                }`}
+              >
+                {vencida ? 'Vencida' : `Dia ${c.diaVencimento}`}
+              </Badge>
+            </div>
+            <span className="mt-1 block text-right text-sm font-semibold tabular-nums whitespace-nowrap sm:mt-0">
               {formatCurrency(c.valor)}
             </span>
           </div>
@@ -64,13 +69,15 @@ export function ContasPendentes({ contas, hoje }: ContasPendentesProps) {
 
       {/* Pagas */}
       {pagas.map((c) => (
-        <div key={c.id} className="flex items-center gap-3 rounded-lg px-3 py-2.5 opacity-50">
-          <CheckCircle2 className="h-4 w-4 shrink-0 text-green-500" />
-          <span className="flex-1 truncate text-sm line-through">{c.descricao}</span>
-          <Badge variant="outline" className="text-xs bg-green-100 text-green-700 border-green-200 shrink-0">
-            Paga
-          </Badge>
-          <span className="text-sm font-semibold tabular-nums shrink-0 text-muted-foreground">
+        <div key={c.id} className="rounded-lg px-3 py-2.5 opacity-50">
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
+            <CheckCircle2 className="h-4 w-4 shrink-0 text-green-500" />
+            <span className="min-w-0 flex-1 truncate text-sm line-through">{c.descricao}</span>
+            <Badge variant="outline" className="ml-auto text-xs bg-green-100 text-green-700 border-green-200 shrink-0">
+              Paga
+            </Badge>
+          </div>
+          <span className="mt-1 block text-right text-sm font-semibold tabular-nums whitespace-nowrap text-muted-foreground sm:mt-0">
             {formatCurrency(c.valor)}
           </span>
         </div>

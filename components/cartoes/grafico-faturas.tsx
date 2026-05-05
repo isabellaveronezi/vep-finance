@@ -148,7 +148,7 @@ export function GraficoFaturas({ transacoes, diaFechamento, cor, onBarClick }: G
             dataKey="total"
             radius={[4, 4, 0, 0]}
             style={onBarClick ? { cursor: 'pointer' } : undefined}
-            onClick={(data: { ts: number }) => onBarClick?.(data.ts)}
+            onClick={(data) => onBarClick?.((data as unknown as { ts: number }).ts)}
           >
             {dados.map((d) => (
               <Cell

@@ -115,8 +115,8 @@ export function ListaTransacoes({
     .reduce((acc, t) => acc + t.valor, 0)
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 overflow-x-hidden">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">Transações</h1>
           <p className="mt-0.5 text-sm text-muted-foreground">
@@ -124,7 +124,7 @@ export function ListaTransacoes({
           </p>
         </div>
 
-        <Button onClick={() => setCriando(true)}>
+        <Button onClick={() => setCriando(true)} className="w-full sm:w-auto">
           <Plus className="mr-2 h-4 w-4" />
           Nova transação
         </Button>
@@ -176,72 +176,78 @@ export function ListaTransacoes({
           />
         </div>
 
-        <SelectWithLabel
-          items={[
-            { value: 'TODOS', label: 'Todos os tipos' },
-            { value: 'ENTRADA', label: 'Receitas' },
-            { value: 'SAIDA', label: 'Despesas' },
-          ]}
-          value={filtroTipo}
-          onValueChange={(v: string | null) => resetFiltro(setFiltroTipo, (v ?? 'TODOS') as typeof filtroTipo)}
-        >
-          <SelectTrigger className="w-36">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="TODOS">Todos os tipos</SelectItem>
-            <SelectItem value="ENTRADA">Receitas</SelectItem>
-            <SelectItem value="SAIDA">Despesas</SelectItem>
-          </SelectContent>
-        </SelectWithLabel>
+        <div className="w-full sm:w-auto">
+          <SelectWithLabel
+            items={[
+              { value: 'TODOS', label: 'Todos os tipos' },
+              { value: 'ENTRADA', label: 'Receitas' },
+              { value: 'SAIDA', label: 'Despesas' },
+            ]}
+            value={filtroTipo}
+            onValueChange={(v: string | null) => resetFiltro(setFiltroTipo, (v ?? 'TODOS') as typeof filtroTipo)}
+          >
+            <SelectTrigger className="w-full sm:w-36">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="TODOS">Todos os tipos</SelectItem>
+              <SelectItem value="ENTRADA">Receitas</SelectItem>
+              <SelectItem value="SAIDA">Despesas</SelectItem>
+            </SelectContent>
+          </SelectWithLabel>
+        </div>
 
-        <SelectWithLabel
-          items={[
-            { value: 'TODOS', label: 'Todos os status' },
-            { value: 'PAGO', label: 'Pago' },
-            { value: 'PENDENTE', label: 'Pendente' },
-            { value: 'PARCELADO', label: 'Parcelado' },
-          ]}
-          value={filtroStatus}
-          onValueChange={(v) => resetFiltro(setFiltroStatus, v ?? 'TODOS')}
-        >
-          <SelectTrigger className="w-36">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="TODOS">Todos os status</SelectItem>
-            <SelectItem value="PAGO">Pago</SelectItem>
-            <SelectItem value="PENDENTE">Pendente</SelectItem>
-            <SelectItem value="PARCELADO">Parcelado</SelectItem>
-          </SelectContent>
-        </SelectWithLabel>
+        <div className="w-full sm:w-auto">
+          <SelectWithLabel
+            items={[
+              { value: 'TODOS', label: 'Todos os status' },
+              { value: 'PAGO', label: 'Pago' },
+              { value: 'PENDENTE', label: 'Pendente' },
+              { value: 'PARCELADO', label: 'Parcelado' },
+            ]}
+            value={filtroStatus}
+            onValueChange={(v) => resetFiltro(setFiltroStatus, v ?? 'TODOS')}
+          >
+            <SelectTrigger className="w-full sm:w-36">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="TODOS">Todos os status</SelectItem>
+              <SelectItem value="PAGO">Pago</SelectItem>
+              <SelectItem value="PENDENTE">Pendente</SelectItem>
+              <SelectItem value="PARCELADO">Parcelado</SelectItem>
+            </SelectContent>
+          </SelectWithLabel>
+        </div>
 
-        <SelectWithLabel
-          items={[
-            { value: 'TODOS', label: 'Todas as categorias' },
-            ...categorias.filter((c) => c.ativo).map((c) => ({
-              value: c.id,
-              label: `${c.icone ? c.icone + ' ' : ''}${c.nome}`,
-            })),
-          ]}
-          value={filtroCategoria}
-          onValueChange={(v) => resetFiltro(setFiltroCategoria, v ?? 'TODOS')}
-        >
-          <SelectTrigger className="w-44">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="TODOS">Todas as categorias</SelectItem>
-            {categorias
-              .filter((c) => c.ativo)
-              .map((c) => (
-                <SelectItem key={c.id} value={c.id}>
-                  {c.icone ? `${c.icone} ` : ''}
-                  {c.nome}
-                </SelectItem>
-              ))}
-          </SelectContent>
-        </SelectWithLabel>
+        <div className="w-full sm:w-auto">
+          <SelectWithLabel
+            items={[
+              { value: 'TODOS', label: 'Todas as categorias' },
+              ...categorias.filter((c) => c.ativo).map((c) => ({
+                value: c.id,
+                label: `${c.icone ? c.icone + ' ' : ''}${c.nome}`,
+              })),
+            ]}
+            value={filtroCategoria}
+            onValueChange={(v) => resetFiltro(setFiltroCategoria, v ?? 'TODOS')}
+          >
+            <SelectTrigger className="w-full sm:w-44">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="TODOS">Todas as categorias</SelectItem>
+              {categorias
+                .filter((c) => c.ativo)
+                .map((c) => (
+                  <SelectItem key={c.id} value={c.id}>
+                    {c.icone ? `${c.icone} ` : ''}
+                    {c.nome}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </SelectWithLabel>
+        </div>
       </div>
 
       {filtradas.length === 0 ? (
@@ -253,52 +259,55 @@ export function ListaTransacoes({
           {transacoesPagina.map((t) => (
             <div
               key={t.id}
-              className="flex items-center gap-3 rounded-lg border bg-background px-4 py-3 transition-colors hover:bg-muted/50"
+              className="rounded-lg border bg-background px-4 py-3 transition-colors hover:bg-muted/50"
             >
-              {t.tipo === 'ENTRADA' ? (
-                <ArrowUpCircle className="h-5 w-5 shrink-0 text-green-500" />
-              ) : (
-                <ArrowDownCircle className="h-5 w-5 shrink-0 text-red-500" />
-              )}
+              <div className="flex min-w-0 items-center gap-3">
+                {t.tipo === 'ENTRADA' ? (
+                  <ArrowUpCircle className="h-5 w-5 shrink-0 text-green-500" />
+                ) : (
+                  <ArrowDownCircle className="h-5 w-5 shrink-0 text-red-500" />
+                )}
 
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-medium">{t.descricao}</p>
-                <p className="text-xs text-muted-foreground">
-                  {formatDate(t.data)}
-                  {t.categoria && ` · ${t.categoria.icone ?? ''} ${t.categoria.nome}`}
-                  {t.cartao && ` · ${t.cartao.nome}`}
-                  {t.status === 'PARCELADO' &&
-                    t.numeroParcela &&
-                    t.totalParcelas &&
-                    ` · ${t.numeroParcela}/${t.totalParcelas}x`}
-                </p>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate font-medium">{t.descricao}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {formatDate(t.data)}
+                    {t.categoria && ` · ${t.categoria.icone ?? ''} ${t.categoria.nome}`}
+                    {t.cartao && ` · ${t.cartao.nome}`}
+                    {t.status === 'PARCELADO' &&
+                      t.numeroParcela &&
+                      t.totalParcelas &&
+                      ` · ${t.numeroParcela}/${t.totalParcelas}x`}
+                  </p>
+                </div>
               </div>
 
-              <span
-                className={`shrink-0 font-semibold tabular-nums ${
-                  t.tipo === 'ENTRADA' ? 'text-green-600' : 'text-red-600'
-                }`}
-              >
-                {t.tipo === 'ENTRADA' ? '+' : '-'}
-                {formatCurrency(t.valor)}
-              </span>
+              <div className="mt-2 flex flex-wrap items-center justify-end gap-2">
+                <span
+                  className={`shrink-0 whitespace-nowrap font-semibold tabular-nums ${
+                    t.tipo === 'ENTRADA' ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {t.tipo === 'ENTRADA' ? '+' : '-'}
+                  {formatCurrency(t.valor)}
+                </span>
 
-              <button
-                type="button"
-                disabled={isPending}
-                onClick={() => {
-                  const next = t.status === 'PAGO' ? 'PENDENTE' : 'PAGO'
-                  startTransition(() => atualizarStatusTransacao(t.id, next))
-                }}
-                className="shrink-0"
-                title="Clique para alternar status"
-              >
-                <Badge variant={STATUS_BADGE[t.status]}>
-                  {STATUS_LABEL[t.status]}
-                </Badge>
-              </button>
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => {
+                    const next = t.status === 'PAGO' ? 'PENDENTE' : 'PAGO'
+                    startTransition(() => atualizarStatusTransacao(t.id, next))
+                  }}
+                  className="shrink-0"
+                  title="Clique para alternar status"
+                >
+                  <Badge variant={STATUS_BADGE[t.status]}>
+                    {STATUS_LABEL[t.status]}
+                  </Badge>
+                </button>
 
-              <div className="flex shrink-0 items-center gap-1">
+                <div className="flex shrink-0 items-center gap-1">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -316,6 +325,7 @@ export function ListaTransacoes({
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
+                </div>
 
                 <Dialog
                   open={editando?.id === t.id}
@@ -343,8 +353,8 @@ export function ListaTransacoes({
 
       {/* Paginação */}
       {totalPaginas > 1 && (
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-muted-foreground">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span className="text-xs text-muted-foreground whitespace-nowrap">
             {(paginaSegura - 1) * ITEMS_POR_PAGINA + 1}–{Math.min(paginaSegura * ITEMS_POR_PAGINA, filtradas.length)} de {filtradas.length}
           </span>
           <div className="flex items-center gap-1">

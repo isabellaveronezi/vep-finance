@@ -39,7 +39,7 @@ interface CardProps {
 
 function MetricCard({ label, valor, sub, icon, cor, detalhes, progresso, corBarra = 'bg-emerald-500' }: CardProps) {
   return (
-    <div className="rounded-xl border bg-card p-[18px] flex flex-col gap-[10px]">
+    <div className="min-w-0 overflow-hidden rounded-xl border bg-card p-[18px] flex flex-col gap-[10px]">
       <div className="flex items-center justify-between">
         <span className="text-xs text-muted-foreground">{label}</span>
         <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${cor}`}>
@@ -47,8 +47,8 @@ function MetricCard({ label, valor, sub, icon, cor, detalhes, progresso, corBarr
         </span>
       </div>
       <div>
-        <p className="text-2xl font-bold tracking-tight tabular-nums">{formatCurrency(valor)}</p>
-        {sub && <p className="mt-0.5 text-[11px] text-muted-foreground">{sub}</p>}
+        <p className="text-2xl font-bold tracking-tight tabular-nums break-words">{formatCurrency(valor)}</p>
+        {sub && <p className="mt-0.5 truncate text-[11px] text-muted-foreground">{sub}</p>}
       </div>
 
       {typeof progresso === 'number' && progresso < 1 && (
@@ -63,9 +63,9 @@ function MetricCard({ label, valor, sub, icon, cor, detalhes, progresso, corBarr
       {detalhes && detalhes.length > 0 && (
         <div className="border-t pt-2 space-y-1.5">
           {detalhes.map((item) => (
-            <div key={item.label} className="flex items-center justify-between text-xs">
-              <span className="text-muted-foreground">{item.label}</span>
-              <span className="font-semibold tabular-nums">{formatCurrency(item.valor)}</span>
+            <div key={item.label} className="flex items-center gap-2 text-xs">
+              <span className="min-w-0 flex-1 truncate text-muted-foreground">{item.label}</span>
+              <span className="shrink-0 whitespace-nowrap text-right font-semibold tabular-nums">{formatCurrency(item.valor)}</span>
             </div>
           ))}
         </div>
@@ -124,7 +124,7 @@ export function ResumoCards({
       />
 
       {/* Card Já Pago */}
-      <div className="rounded-xl border bg-card p-[18px] flex flex-col gap-[10px]">
+      <div className="min-w-0 overflow-hidden rounded-xl border bg-card p-[18px] flex flex-col gap-[10px]">
         <div className="flex items-center justify-between">
           <span className="text-xs text-muted-foreground">
             {isFuturo ? 'Planejado pagar' : 'Já pago no mês'}
@@ -134,10 +134,10 @@ export function ResumoCards({
           </span>
         </div>
         <div>
-          <p className="text-2xl font-bold tracking-tight tabular-nums">
+          <p className="text-2xl font-bold tracking-tight tabular-nums break-words">
             {formatCurrency(jaPagoTotal)}
           </p>
-          <p className="mt-0.5 text-[11px] text-muted-foreground">
+          <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
             {isMesAtual ? 'saído do bolso este mês' : 'total pago no período'}
           </p>
         </div>
@@ -145,9 +145,9 @@ export function ResumoCards({
         {jaPagoItens.length > 0 && (
           <div className="border-t pt-2 space-y-1.5">
             {jaPagoItens.map((item) => (
-              <div key={item.label} className="flex items-center justify-between text-xs">
-                <span className="text-muted-foreground">{item.label}</span>
-                <span className="font-semibold tabular-nums">{formatCurrency(item.valor)}</span>
+              <div key={item.label} className="flex items-center gap-2 text-xs">
+                <span className="min-w-0 flex-1 truncate text-muted-foreground">{item.label}</span>
+                <span className="shrink-0 whitespace-nowrap text-right font-semibold tabular-nums">{formatCurrency(item.valor)}</span>
               </div>
             ))}
           </div>

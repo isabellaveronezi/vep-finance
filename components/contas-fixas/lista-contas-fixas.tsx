@@ -122,47 +122,68 @@ function SecaoContas({
       {contas.map((c) => (
         <div
           key={c.id}
-          className={`flex items-center gap-4 rounded-lg border bg-card p-4 transition-opacity ${c.pagaNoMes ? 'opacity-60' : ''}`}
+          className={`flex flex-col sm:flex-row sm:items-center gap-3 rounded-lg border bg-card p-4 transition-opacity ${c.pagaNoMes ? 'opacity-60' : ''}`}
         >
-          {/* Dia */}
-          <div className={`flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md text-center ${
-            c.pagaNoMes ? 'bg-green-100' : isEntrada ? 'bg-emerald-50' : 'bg-muted'
-          }`}>
-            {c.pagaNoMes
-              ? <CheckCircle2 className="h-6 w-6 text-green-600" />
-              : <>
-                  <span className="text-xs text-muted-foreground leading-none">dia</span>
-                  <span className="text-lg font-bold leading-tight">{c.diaVencimento}</span>
-                </>
-            }
-          </div>
+          {/* Linha principal: dia + descrição + valor */}
+          <div className="min-w-0 flex-1 space-y-2">
+            <div className="flex items-center gap-3 min-w-0">
+            {/* Dia */}
+            <div className={`flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md text-center ${
+              c.pagaNoMes ? 'bg-green-100' : isEntrada ? 'bg-emerald-50' : 'bg-muted'
+            }`}>
+              {c.pagaNoMes
+                ? <CheckCircle2 className="h-6 w-6 text-green-600" />
+                : <>
+                    <span className="text-xs text-muted-foreground leading-none">dia</span>
+                    <span className="text-lg font-bold leading-tight">{c.diaVencimento}</span>
+                  </>
+              }
+            </div>
 
-          {/* Descrição */}
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2">
-              <span className={`truncate font-medium ${c.pagaNoMes ? 'line-through text-muted-foreground' : ''}`}>
-                {c.descricao}
-              </span>
-              {c.recorrente && (
-                <span className="text-xs text-muted-foreground hidden sm:inline">(recorrente)</span>
+            {/* Descrição */}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <span className={`truncate font-medium ${c.pagaNoMes ? 'line-through text-muted-foreground' : ''}`}>
+                  {c.descricao}
+                </span>
+                {c.recorrente && (
+                  <span className="text-xs text-muted-foreground hidden sm:inline">(recorrente)</span>
+                )}
+              </div>
+              {c.categoria && (
+                <span className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
+                  <Tag className="h-3 w-3" />{c.categoria.nome}
+                </span>
               )}
             </div>
-            {c.categoria && (
-              <span className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground">
-                <Tag className="h-3 w-3" />{c.categoria.nome}
-              </span>
-            )}
+
+            </div>
+
+            {/* Valor + status (mobile) */}
+            <div className="flex items-end justify-end gap-2 sm:hidden">
+              {c.pagaNoMes && c.valorPago !== null && c.valorPago !== c.valor ? (
+                <div className="flex flex-col items-end">
+                  <span className="text-xs text-muted-foreground line-through whitespace-nowrap">{formatCurrency(c.valor)}</span>
+                  <span className={`font-semibold whitespace-nowrap ${isEntrada ? 'text-green-600' : ''}`}>{formatCurrency(c.valorPago)}</span>
+                </div>
+              ) : (
+                <span className={`font-semibold whitespace-nowrap ${isEntrada && !c.pagaNoMes ? 'text-green-600' : ''}`}>
+                  {formatCurrency(c.valor)}
+                </span>
+              )}
+              <StatusBadge conta={c} mesAno={mesAno} />
+            </div>
           </div>
 
-          {/* Valor + status */}
-          <div className="flex flex-col items-end gap-1.5 shrink-0">
+          {/* Valor + status (desktop) */}
+          <div className="hidden sm:flex flex-col items-end gap-1.5 shrink-0">
             {c.pagaNoMes && c.valorPago !== null && c.valorPago !== c.valor ? (
               <div className="flex flex-col items-end">
-                <span className="text-xs text-muted-foreground line-through">{formatCurrency(c.valor)}</span>
-                <span className={`font-semibold ${isEntrada ? 'text-green-600' : ''}`}>{formatCurrency(c.valorPago)}</span>
+                <span className="text-xs text-muted-foreground line-through whitespace-nowrap">{formatCurrency(c.valor)}</span>
+                <span className={`font-semibold whitespace-nowrap ${isEntrada ? 'text-green-600' : ''}`}>{formatCurrency(c.valorPago)}</span>
               </div>
             ) : (
-              <span className={`font-semibold ${isEntrada && !c.pagaNoMes ? 'text-green-600' : ''}`}>
+              <span className={`font-semibold whitespace-nowrap ${isEntrada && !c.pagaNoMes ? 'text-green-600' : ''}`}>
                 {formatCurrency(c.valor)}
               </span>
             )}
@@ -170,7 +191,7 @@ function SecaoContas({
           </div>
 
           {/* Ações */}
-          <div className="flex items-center gap-1 shrink-0">
+          <div className="flex items-center justify-end gap-1 shrink-0 border-t pt-2 sm:border-t-0 sm:pt-0">
             {isMesAtual && (
               <Button
                 variant={c.pagaNoMes ? 'ghost' : 'outline'}
@@ -245,7 +266,7 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
   const pendentes     = despesas.filter((c) => !c.pagaNoMes)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 overflow-x-hidden">
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
@@ -254,9 +275,9 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
             {ativas.length} conta{ativas.length !== 1 ? 's' : ''} ativa{ativas.length !== 1 ? 's' : ''}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
           <SeletorMes mesAno={mesAno} basePath="/contas-fixas" />
-          <Button onClick={() => setCriando(true)}>
+          <Button onClick={() => setCriando(true)} className="w-full sm:w-auto">
             <Plus className="h-4 w-4" />
             Nova conta fixa
           </Button>
@@ -265,7 +286,7 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
 
       {/* Chips de resumo */}
       {ativas.length > 0 && (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border bg-card px-[18px] py-[14px]">
             <p className="text-[11px] text-muted-foreground mb-1">Total mensal</p>
             <p className="text-lg font-bold tabular-nums">{formatCurrency(totalMensal)}</p>
@@ -283,9 +304,9 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
 
       {/* Alerta de pendentes */}
       {pendentes.length > 0 && (
-        <div className="flex items-center gap-3 rounded-[10px] border border-amber-200 bg-amber-50 px-4 py-3">
+        <div className="flex items-start gap-3 rounded-[10px] border border-amber-200 bg-amber-50 px-4 py-3">
           <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />
-          <span className="text-sm font-medium text-amber-800">
+          <span className="min-w-0 text-sm font-medium text-amber-800">
             {pendentes.length} conta{pendentes.length > 1 ? 's' : ''} pendente{pendentes.length > 1 ? 's' : ''} — vence{pendentes.length > 1 ? 'm' : ''} em breve
           </span>
         </div>
@@ -316,15 +337,15 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
               const cor     = cat.cor ?? '#6b7280'
               return (
                 <div key={cat.nome} className="space-y-1">
-                  <div className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-2">
+                  <div className="flex flex-col gap-1 text-sm sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex min-w-0 items-center gap-2">
                       <span
                         className="h-2.5 w-2.5 rounded-full shrink-0"
                         style={{ backgroundColor: cor }}
                       />
-                      <span className="font-medium">{cat.nome}</span>
+                      <span className="min-w-0 truncate font-medium">{cat.nome}</span>
                       {cat.pagas > 0 && cat.pagas < cat.total && (
-                        <span className="text-xs text-muted-foreground">
+                        <span className="shrink-0 text-xs text-muted-foreground">
                           {formatCurrency(cat.pagas)} pago
                         </span>
                       )}
@@ -332,7 +353,7 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
                         <span className="text-xs text-green-600">pago</span>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex items-center gap-2 self-end shrink-0 whitespace-nowrap sm:self-auto">
                       <span className="text-xs text-muted-foreground">{pct.toFixed(0)}%</span>
                       <span className="font-semibold tabular-nums">{formatCurrency(cat.total)}</span>
                     </div>
@@ -347,9 +368,9 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
               )
             })}
           </div>
-          <div className="flex justify-between text-xs text-muted-foreground pt-1 border-t">
+          <div className="flex flex-wrap items-center justify-between gap-1 text-xs text-muted-foreground pt-1 border-t">
             <span>{categoriasDespesas.length} categoria{categoriasDespesas.length !== 1 ? 's' : ''}</span>
-            <span className="font-semibold text-foreground">{formatCurrency(totalDespesas)} total</span>
+            <span className="font-semibold text-foreground whitespace-nowrap">{formatCurrency(totalDespesas)} total</span>
           </div>
         </div>
       )}
@@ -391,20 +412,24 @@ export function ListaContasFixas({ contasFixas, categorias, mesAno }: ListaConta
             Inativas ({inativas.length})
           </p>
           {inativas.map((c) => (
-            <div key={c.id} className="flex items-center gap-4 rounded-lg border bg-muted/40 p-4 opacity-60">
-              <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md bg-muted text-center">
-                <span className="text-xs text-muted-foreground leading-none">dia</span>
-                <span className="text-lg font-bold leading-tight">{c.diaVencimento}</span>
+            <div key={c.id} className="flex flex-col gap-2 rounded-lg border bg-muted/40 p-4 opacity-60 sm:flex-row sm:items-center sm:gap-4">
+              <div className="flex min-w-0 items-center gap-3 flex-1">
+                <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-md bg-muted text-center">
+                  <span className="text-xs text-muted-foreground leading-none">dia</span>
+                  <span className="text-lg font-bold leading-tight">{c.diaVencimento}</span>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <span className="truncate font-medium line-through">{c.descricao}</span>
+                  <span className="ml-2 text-xs text-muted-foreground">{c.tipo === 'ENTRADA' ? 'receita' : 'despesa'}</span>
+                </div>
               </div>
-              <div className="min-w-0 flex-1">
-                <span className="truncate font-medium line-through">{c.descricao}</span>
-                <span className="ml-2 text-xs text-muted-foreground">{c.tipo === 'ENTRADA' ? 'receita' : 'despesa'}</span>
+              <div className="flex items-center justify-end gap-2">
+                <span className="font-semibold text-muted-foreground whitespace-nowrap">{formatCurrency(c.valor)}</span>
+                <Button variant="ghost" size="icon" className="h-8 w-8" disabled={isPending}
+                  title="Reativar" onClick={() => startTransition(() => toggleContaFixa(c.id, true))}>
+                  <ToggleLeft className="h-4 w-4 text-muted-foreground" />
+                </Button>
               </div>
-              <span className="font-semibold text-muted-foreground">{formatCurrency(c.valor)}</span>
-              <Button variant="ghost" size="icon" className="h-8 w-8" disabled={isPending}
-                title="Reativar" onClick={() => startTransition(() => toggleContaFixa(c.id, true))}>
-                <ToggleLeft className="h-4 w-4 text-muted-foreground" />
-              </Button>
             </div>
           ))}
         </div>

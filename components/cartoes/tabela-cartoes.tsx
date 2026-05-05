@@ -66,7 +66,7 @@ export function TabelaCartoes({ cartoes }: TabelaCartoesProps) {
 
       {/* Chips de resumo */}
       {cartoes.length > 0 && (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-xl border bg-card px-[18px] py-[14px]">
             <p className="text-[11px] text-muted-foreground mb-1">Limite total</p>
             <p className="text-lg font-bold tabular-nums text-muted-foreground">{formatCurrency(totalLimite)}</p>

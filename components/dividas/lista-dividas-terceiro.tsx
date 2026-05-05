@@ -122,9 +122,9 @@ export function ListaDividasTerceiro({ dividas, cartoes, hoje: hojeIso }: ListaD
   ]
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 overflow-x-hidden">
       {/* Section header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <h2 className="text-sm font-semibold text-foreground">Me devem</h2>
           <p className="mt-0.5 text-xs text-muted-foreground">
@@ -136,7 +136,7 @@ export function ListaDividasTerceiro({ dividas, cartoes, hoje: hojeIso }: ListaD
         <Button
           onClick={() => setCriando(true)}
           size="sm"
-          className="h-8 gap-1.5 rounded-lg text-xs"
+          className="h-8 w-full gap-1.5 rounded-lg text-xs sm:w-auto"
         >
           <Plus className="h-3.5 w-3.5" />
           Nova cobrança
@@ -145,7 +145,7 @@ export function ListaDividasTerceiro({ dividas, cartoes, hoje: hojeIso }: ListaD
 
       {/* Inline metrics */}
       {abertas.length > 0 && (
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
+        <div className="flex flex-wrap gap-x-4 gap-y-2 rounded-lg bg-muted/20 px-3 py-2 text-xs text-muted-foreground">
           <span>
             Recebido <span className="font-medium text-emerald-600 dark:text-emerald-400">{formatCurrency(totalRecebido)}</span>
           </span>
@@ -194,15 +194,15 @@ export function ListaDividasTerceiro({ dividas, cartoes, hoje: hojeIso }: ListaD
             <button
               type="button"
               onClick={() => toggleGrupo(chaveGrupo)}
-              className="flex w-full items-center justify-between gap-3 bg-muted/30 px-4 py-3 text-left transition-colors hover:bg-muted/50"
+            className="flex w-full items-center justify-between gap-3 bg-muted/30 px-4 py-3.5 text-left transition-colors hover:bg-muted/50"
             >
-              <div className="flex min-w-0 items-center gap-2.5">
-                <span className="text-sm font-semibold text-foreground">{nomeGrupo}</span>
-                <span className="rounded-full border border-border/70 bg-background px-2 py-0.5 text-[10px] text-muted-foreground">
+              <div className="flex min-w-0 flex-1 items-center gap-2.5">
+                <span className="min-w-0 truncate text-sm font-semibold text-foreground">{nomeGrupo}</span>
+                <span className="shrink-0 rounded-full border border-border/70 bg-background px-2 py-0.5 text-[10px] text-muted-foreground">
                   {itens.length}
                 </span>
                 {vencidasNoGrupo > 0 && (
-                  <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-600 dark:text-amber-400">
+                  <span className="shrink-0 rounded-full bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-600 dark:text-amber-400">
                     {vencidasNoGrupo} atrasada{vencidasNoGrupo !== 1 ? 's' : ''}
                   </span>
                 )}
@@ -243,7 +243,7 @@ export function ListaDividasTerceiro({ dividas, cartoes, hoje: hojeIso }: ListaD
                       {/* Row */}
                       <button
                         onClick={() => toggleCard(d.id)}
-                        className="group flex w-full items-start gap-3 px-4 py-3.5 text-left transition-colors hover:bg-muted/30"
+                        className="group flex w-full items-start gap-3 px-4 py-4 text-left transition-colors hover:bg-muted/30"
                       >
                         {/* Status dot */}
                         <span className={cn(
@@ -258,7 +258,7 @@ export function ListaDividasTerceiro({ dividas, cartoes, hoje: hojeIso }: ListaD
                         )} />
 
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center justify-between gap-3">
+                          <div className="flex items-start justify-between gap-3">
                             <div className="flex min-w-0 items-center gap-2">
                               <span className="truncate text-sm font-semibold text-foreground">
                                 {d.nomeDevedor}
@@ -501,10 +501,10 @@ function StatBlock({
   accent?: 'positive' | 'negative'
 }) {
   return (
-    <div className="px-4 py-3">
-      <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-muted-foreground">{label}</p>
+    <div className="px-2 py-2 sm:px-4 sm:py-3">
+      <p className="text-[9px] font-medium uppercase tracking-[0.14em] text-muted-foreground sm:text-[10px]">{label}</p>
       <p className={cn(
-        'mt-1 text-sm font-semibold tabular-nums',
+        'mt-0.5 text-xs font-semibold tabular-nums sm:mt-1 sm:text-sm',
         accent === 'positive'
           ? 'text-emerald-600 dark:text-emerald-400'
           : accent === 'negative'
